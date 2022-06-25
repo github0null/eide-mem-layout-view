@@ -1,5 +1,9 @@
 # eide-mem-layout-view
 
+`Memory Layout WebView` for vscode plug-in [eide](https://marketplace.visualstudio.com/items?itemName=CL.eide) 
+
+![](./img/show.png)
+
 ## Project setup
 ```
 npm install
