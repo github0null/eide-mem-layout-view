@@ -1,9 +1,21 @@
 import Vue from 'vue'
 import App from './App.vue'
-
-const TAG = '[eide mem layout view] ';
+import Toasted from 'vue-toasted';
 
 Vue.config.productionTip = false
+
+Vue.use(Toasted, {
+    iconPack: 'material',
+    position: 'bottom-right',
+    duration: '2500',
+    keepOnHover: true,
+    action: {
+        icon: 'close',
+        onClick: (e, toastObject) => {
+            toastObject.goAway(0);
+        }
+    },
+});
 
 let appInstance = undefined
 let initData = undefined
@@ -24,8 +36,10 @@ window.addEventListener('message', event => {
     if (typeof event.data == 'string') {
         switch (event.data) {
             case 'eide.mem-layout.status.done':
+                Vue.toasted.success('Operation Done !', { icon: 'check' })
                 break;
             case 'eide.mem-layout.status.fail':
+                Vue.toasted.error('Operation Failed !', { icon: 'error' })
                 break;
             default:
                 break;
@@ -60,6 +74,8 @@ vscode.postMessage('eide.mem-layout.launched')
 //////////////////////////////////////////////////////////
 // funcs
 //////////////////////////////////////////////////////////
+
+const TAG = '[eide mem layout view] ';
 
 function initApp() {
     if (inited) return
@@ -114,9 +130,66 @@ function initAppData() {
 
 function save() {
 
-    console.log(`${TAG}save data: ` + JSON.stringify(appData.data, undefined, 2));
+    const result = {
+        RAM: [],
+        ROM: []
+    };
 
-    //TODO
+    // ram
+    ['on-chip', 'off-chip'].forEach(memType => {
+
+        const memTag = 'ram';
+
+        const ramTag = (memType == 'on-chip' ? `i${memTag}` : `${memTag}`).toUpperCase();
+
+        appData.data[memTag][memType].forEach(item => {
+
+            const isEmptyItem = item.addr.trim() == '' || item.size.trim() == '';
+
+            if (!isEmptyItem) {
+                result[memTag.toUpperCase()].push({
+                    tag: ramTag,
+                    id: item.id,
+                    mem: {
+                        startAddr: item.addr.trim(),
+                        size: item.size.trim()
+                    },
+                    isChecked: item.isDef,
+                    noInit: item.noInit
+                });
+            }
+        });
+    });
+
+    // rom
+    ['on-chip', 'off-chip'].forEach(memType => {
+
+        const memTag = 'rom';
+
+        const romTag = (memType == 'on-chip' ? `i${memTag}` : `${memTag}`).toUpperCase();
+
+        appData.data[memTag][memType].forEach(item => {
+
+            const isEmptyItem = item.addr.trim() == '' || item.size.trim() == '';
+
+            if (!isEmptyItem) {
+                result[memTag.toUpperCase()].push({
+                    tag: romTag,
+                    id: item.id,
+                    mem: {
+                        startAddr: item.addr.trim(),
+                        size: item.size.trim()
+                    },
+                    isChecked: item.isDef,
+                    isStartup: item.isStartup
+                });
+            }
+        });
+    });
+
+    console.log(`${TAG}save data: ` + JSON.stringify(result, undefined, 2));
+
+    vscode.postMessage(result);
 }
 
 function reset(memLayoutData) {
