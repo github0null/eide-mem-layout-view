@@ -495,7 +495,7 @@ h4 {
 }
 
 table {
-    margin-bottom: 20px;
+    margin-top: 20px;
 }
 
 caption {
@@ -527,7 +527,7 @@ vscode-checkbox {
 
 .code {
     font-family: Consolas;
-    padding-top: 12px;
+    padding-top: 16px;
 }
 
 pre {
