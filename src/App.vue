@@ -426,9 +426,32 @@ export default {
 <style>
 @font-face {
     font-family: Consolas;
+    font-weight: normal;
+    font-style: normal;
     src: url(assets/fonts/consola.ttf);
 }
 
+@font-face {
+    font-family: Consolas;
+    font-weight: bold;
+    font-style: normal;
+    src: url(assets/fonts/consolab.ttf);
+}
+
+/* @font-face {
+    font-family: Consolas;
+    font-weight: normal;
+    font-style: italic;
+    src: url(assets/fonts/consolai.ttf);
+}
+
+@font-face {
+    font-family: Consolas;
+    font-weight: bold;
+    font-style: italic;
+    src: url(assets/fonts/consolaz.ttf);
+}
+ */
 @font-face {
     font-family: "Material Icons";
     font-style: normal;
@@ -472,12 +495,12 @@ h4 {
 }
 
 table {
-    margin-bottom: 18px;
+    margin-bottom: 20px;
 }
 
 caption {
     font-family: Consolas;
-    margin-bottom: 4px;
+    margin-bottom: 8px;
 }
 
 td {
@@ -485,6 +508,7 @@ td {
 }
 
 th {
+    font-family: Consolas;
     text-align: left;
 }
 
