@@ -7,14 +7,8 @@ Vue.config.productionTip = false
 Vue.use(Toasted, {
     iconPack: 'material',
     position: 'bottom-right',
-    duration: '2500',
-    keepOnHover: true,
-    action: {
-        icon: 'close',
-        onClick: (e, toastObject) => {
-            toastObject.goAway(0);
-        }
-    },
+    duration: '1800',
+    keepOnHover: true
 });
 
 let appInstance = undefined
@@ -36,10 +30,10 @@ window.addEventListener('message', event => {
     if (typeof event.data == 'string') {
         switch (event.data) {
             case 'eide.mem-layout.status.done':
-                Vue.toasted.success('Operation Done !', { icon: 'check' })
+                Vue.toasted.success('Successful !', { icon: 'check' })
                 break;
             case 'eide.mem-layout.status.fail':
-                Vue.toasted.error('Operation Failed !', { icon: 'error' })
+                Vue.toasted.error('Failed !, Please check eide error log.', { icon: 'error' })
                 break;
             default:
                 break;

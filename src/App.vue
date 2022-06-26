@@ -485,10 +485,6 @@ export default {
     font-feature-settings: "liga";
 }
 
-.toasted .action {
-    color: #2f363d !important;
-}
-
 h4 {
     font-family: Consolas;
     font-weight: normal;
