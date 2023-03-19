@@ -387,7 +387,7 @@ export default {
                             has_err = true;
                         }
 
-                        if (/^\s*(?:0x)?[0-9a-f]+\s*$/i.test(item.size)) {
+                        if (/^\s*0x[0-9a-f]+\s*$/i.test(item.size)) {
                             eSize.style.borderStyle = 'none';
                             mem_sum += parseInt(item.size.trim(), 16);
                         } else if (/^\s*\d+\s*$/i.test(item.size)) {
